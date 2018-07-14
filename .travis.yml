@@ -12,7 +12,6 @@ compiler:
     - clang
 
 before_script:
-    - cd ch2
     - mkdir build
     - cd build
     - cmake ..

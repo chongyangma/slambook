@@ -3,3 +3,4 @@ PROJECT(ch3)
 
 ADD_SUBDIRECTORY(useEigen)
 ADD_SUBDIRECTORY(useGeometry)
+ADD_SUBDIRECTORY(visualizeGeometry)

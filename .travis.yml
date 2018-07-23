@@ -7,7 +7,6 @@ matrix:
     include:
         # Linux gcc 6 - Python 3.6
         - os: linux
-          dist: trusty
           compiler: gcc
           addons:
             apt:

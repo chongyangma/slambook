@@ -18,8 +18,8 @@ before_install:
   - git submodule update --init --recursive
 
 before_script:
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libeigen3-dev; fi
-    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install eigen; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libglew-dev libeigen3-dev; fi
+    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install glew eigen; fi
     - mkdir build
     - cd build
     - cmake ..

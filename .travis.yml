@@ -3,19 +3,37 @@ language: cpp
 sudo: required
 dist: trusty
 
-os:
-    - linux
-    - osx
-
-compiler:
-    - gcc
-    - clang
+matrix:
+    include:
+        # Linux gcc 6 - Python 3.6
+        - os: linux
+          dist: trusty
+          compiler: gcc
+          addons:
+            apt:
+              sources: ['ubuntu-toolchain-r-test', 'deadsnakes']
+              packages: ['g++-6', 'gcc-6', 'ccache', 'python3.6-dev']
+          env: >
+            [
+            CXX_COMPILER=g++-6                         ,
+            C_COMPILER=gcc-6                           ,
+            PYTHON_VERSION=3.6                         ,
+            PYTHON_INCLUDE_DIR=/usr/include/python3.6m ,
+            PYTHON_LIBRARY=/usr/lib/libpython3.6m.so   ,
+            PYTHON_BINARY=/usr/bin/python3.6           ,
+            LIEF_TEST_STATIC=ON                        ,
+            LIEF_TEST_SHARED=ON                        ,
+            ]
+        # OSX 10.11 - xcode 7.3 - Python 2.7
+        - os: osx
+          compiler: clang
 
 git:
   submodules: true
 
 before_script:
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository ppa:jonathonf/python-3.6 && sudo apt-get update && sudo apt-get install python3.6 libglew-dev libeigen3-dev; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update -q; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install python-setuptools libglew-dev libeigen3-dev; fi
     - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install glew eigen; fi
     - mkdir build
     - cd build
